@@ -1,7 +1,6 @@
 <template>
-  <div class="header">
-    我是header
-  </div>
+    <div>
+    </div>
 </template>
 
 <script type="text/ecmascript-6">
