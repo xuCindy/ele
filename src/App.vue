@@ -33,7 +33,7 @@
         response = response.data
         if (response.errno === ERR_OK) {
           this.seller = response.data
-          console.log(this.seller)
+          // console.log(this.seller)
         }
       })
     },
@@ -45,6 +45,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   @import "./common/stylus/mixin.styl"
+
   .tab
     display: flex
     width: 100%
