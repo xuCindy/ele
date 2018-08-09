@@ -40,8 +40,8 @@
             <v-title text="优惠信息"></v-title>
             <ul class="supports" v-if="seller.supports">
               <li class="support-item" v-for="(item,index) in seller.supports" :key="index">
-                <span class="icon" :class="classMap[seller.supports[index].type]"></span>
-                <span class="text">{{seller.supports[index].description}}</span>
+                <span class="icon" :class="classMap[item.type]"></span>
+                <span class="text">{{item.description}}</span>
               </li>
             </ul>
             <v-title text="商家公告"></v-title>
