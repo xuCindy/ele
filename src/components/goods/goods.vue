@@ -2,7 +2,8 @@
   <div class="goods">
     <div class="menu-wrapper" ref="menuWrapper">
       <ul>
-        <li class="menu-item" v-for="(item,index) in goods" :key="index" :class="{'current':currentIndex===index}" @click="selectMenu(index,$event)">
+        <li class="menu-item" v-for="(item,index) in goods" :key="index" :class="{'current':currentIndex===index}"
+            @click="selectMenu(index,$event)">
           <span class="text border-1px">
             <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
           </span>
@@ -34,11 +35,13 @@
         </li>
       </ul>
     </div>
+    <shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll'
+  import shopcart from 'components/shopcart/shopcart'
 
   const ERR_OK = 0
   export default {
@@ -71,11 +74,11 @@
         response = response.data
         if (response.errno === ERR_OK) {
           this.goods = response.data
+          // console.log(this.goods)
           this.$nextTick(() => {
             this._initScroll()
             this._calculateHeight()
-          })  
-          // console.log(this.goods)
+          })
         }
       })
     },
@@ -108,8 +111,21 @@
           this.listHeight.push(height)
         }
         // console.log(this.listHeight)
-      }
+      },
 
+      selectMenu(index, event) {
+        // console.log(index)
+        if (!event._constructed) {
+          return
+        }
+        let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hock')
+        let el = foodList[index]
+        // console.log(el)
+        this.foodsScroll.scrollToElement(el, 300)
+      }
+    },
+    components: {
+      shopcart
     }
   }
 </script>
@@ -140,7 +156,7 @@
           background: #fff
           font-weight: 700
           .text
-            border-none() 
+            border-none()
         .icon
           display: inline-block
           vertical-align: top
@@ -194,16 +210,16 @@
             height: 14px
             line-height: 14px
             font-size: 14px
-            color: rgb(7,17,27)  
-          .desc,.extra
+            color: rgb(7, 17, 27)
+          .desc, .extra
             line-height: 10px
             font-size: 10px
-            color: rgb(147,153,159)
+            color: rgb(147, 153, 159)
           .desc
             line-height: 12px
-            margin-bottom: 8px  
+            margin-bottom: 8px
           .extra
-            &.count   
+            &.count
               margin-right: 12px
           .price
             font-weight: 700
@@ -212,9 +228,9 @@
               margin-right: 8px
               font-size: 14px
               color: rgb(240, 20, 20)
-            .old 
+            .old
               text-decoration: line-through
               font-size: 10px
-              color: rgb(147, 153, 159) 
+              color: rgb(147, 153, 159)
 
 </style>
